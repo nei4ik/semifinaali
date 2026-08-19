@@ -1,8 +1,7 @@
 import { Header } from '../components/Header.jsx';
 import { Footer } from '../components/Footer.jsx';
 import { useState, useEffect } from 'react';
-
-const URL = 'http://localhost:3000';
+const URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 export const GamePage = () => {
 

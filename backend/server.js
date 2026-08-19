@@ -10,9 +10,14 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const isProduction = process.env.NODE_ENV === "production";
+const corsOrigin = process.env.CORS_ORIGIN || "http://localhost:5173";
+
+app.set("trust proxy", 1);
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: corsOrigin,
     credentials: true,
   })
 );
@@ -21,13 +26,13 @@ app.use(express.json());
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || "dev-secret-change-me",
     resave: false,
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
       maxAge: 1000 * 60 * 60 * 24,
     },
   })
@@ -63,10 +68,7 @@ app.get("/api/categories", async (req, res) => {
 
 app.get("/api/teachers", async (req, res) => {
   try {
-    const [rows] = await db.execute(
-      "SELECT id, username FROM teachers"
-    );
-
+    const [rows] = await db.execute("SELECT id, username FROM teachers");
     res.json(rows);
   } catch (error) {
     console.error("Error fetching teachers:", error);
