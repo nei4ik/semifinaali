@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import "./style/styles.css"
 import { LoginPage } from './routes/LoginPage.jsx';
 import { AdminPage } from './routes/AdminPage.jsx';
@@ -8,6 +8,11 @@ const App = () => {
 
   return (
     <Routes>
+
+        <Route
+          path="/"
+          element={<Navigate to="/game" replace />}
+        />
 
       <Route 
         path="/game" 
