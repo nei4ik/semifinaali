@@ -1,0 +1,561 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background: #15111f;
+}
+
+body {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+
+    color: #f8fafc;
+    font-family: "Inter", Arial, sans-serif;
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgb(124 58 237 / 20%),
+            transparent 34rem
+    ),
+        radial-gradient(
+            circle at 15% 35%,
+            rgb(59 130 246 / 10%),
+            transparent 28rem
+    ),
+
+    #15111f;
+}
+
+h1,
+h2,
+h3 {
+    margin-top: 0;
+    font-family: 'Playfair Display', Georgia, serif;
+}
+
+p {
+    margin-top: 0;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.page-content {
+    flex: 1;
+}
+
+.stage-title {
+    margin: 56px 16px 28px;
+    color: #f8fafc;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    line-height: 1.2;
+}
+
+.question {
+    margin: 0 16px 20px;
+    font-size: clamp(1.1rem, 2vw, 1.25rem);
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+/* Quiz answers */
+
+.selected-answer {
+    outline: 4px solid #ffffff;
+    outline-offset: -7px;
+    filter: brightness(1.16);
+    box-shadow: 0 0 0 4px rgb(255 255 255 / 18%);
+}
+
+.answers-card {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(180px, 360px));
+    justify-content: center;
+    gap: 16px;
+
+    width: min(100% - 32px, 760px);
+    margin: 0 auto;
+    padding: 0 0 24px;
+}
+
+.option-a,
+.option-b,
+.option-c,
+.option-d {
+    min-height: clamp(135px, 22vw, 200px);
+    padding: 20px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid rgb(255 255 255 / 14%);
+    color: #ffffff;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.7rem, 3vw, 2.25rem);
+    font-weight: 700;
+    text-shadow: 0 2px 5px rgb(0 0 0 / 40%);
+    cursor: pointer;
+
+    transition:
+        transform 0.18s ease,
+        filter 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.option-a {
+    background:
+        linear-gradient(135deg, rgb(255 255 255 / 10%), transparent 48%),
+        #4f8a62;
+
+    border-radius: 14px 6px 6px 6px;
+}
+
+.option-b {
+    background:
+        linear-gradient(135deg, rgb(255 255 255 / 10%), transparent 48%),
+        #526b9e;
+
+    border-radius: 6px 14px 6px 6px;
+}
+
+.option-c {
+    background:
+        linear-gradient(135deg, rgb(255 255 255 / 10%), transparent 48%),
+        #a98335;
+
+    border-radius: 6px 6px 6px 14px;
+}
+
+.option-d {
+    background:
+        linear-gradient(135deg, rgb(255 255 255 / 10%), transparent 48%),
+        #a95752;
+
+    border-radius: 6px 6px 14px 6px;
+}
+
+.option-a:hover,
+.option-b:hover,
+.option-c:hover,
+.option-d:hover {
+    transform: translateY(-5px) scale(1.01);
+    filter: brightness(1.08);
+    box-shadow: 0 14px 30px rgb(0 0 0 / 35%);
+}
+
+.option-a:active,
+.option-b:active,
+.option-c:active,
+.option-d:active {
+    transform: translateY(-1px) scale(0.99);
+}
+
+/* Teacher selection */
+
+.teachers-container {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 240px));
+  justify-content: center;
+  gap: 20px;
+
+  width: min(100% - 32px, 800px);
+  margin: 0 auto 48px;
+}
+
+.teachers-card {
+  position: relative;
+  min-height: 170px;
+  padding: 24px;
+
+  display: grid;
+  place-items: center;
+
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 18px;
+
+  color: #f8fafc;
+  font: inherit;
+  font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+  cursor: pointer;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgb(255 255 255 / 10%),
+      rgb(255 255 255 / 2%)
+    ),
+    #241d32;
+
+  box-shadow:
+    0 12px 30px rgb(0 0 0 / 25%),
+    inset 0 1px 0 rgb(255 255 255 / 8%);
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.teachers-card::before {
+    position: absolute;
+    inset: 0;
+    content: "";
+    opacity: 0;
+    background: linear-gradient(
+        135deg,
+        rgb(196 181 253 / 18%),
+        transparent 55%
+    );
+
+    transition: opacity 0.2s ease;
+}
+
+.teachers-card h3 {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+
+    font-family: "Playfair Display", Georgia, serif;
+    line-height: 1.12;
+}
+
+.teachers-card:hover {
+    border-color: rgb(196 181 253 / 60%);
+    transform: translateY(-7px);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgb(196 181 253 / 18%),
+            rgb(255 255 255 / 3%)
+        ),
+        #2b203d;
+
+    box-shadow:
+        0 18px 38px rgb(0 0 0 / 36%),
+        0 0 0 4px rgb(196 181 253 / 10%);
+}
+
+.teachers-card:hover::before {
+    opacity: 1;
+}
+
+/* Category selection */
+
+.category-container {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 240px));
+  justify-content: center;
+  gap: 20px;
+
+  width: min(100% - 32px, 800px);
+  margin: 0 auto 48px;
+}
+
+.category-card {
+  position: relative;
+  min-height: 170px;
+  padding: 24px;
+
+  display: grid;
+  place-items: center;
+
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 18px;
+
+  color: #f8fafc;
+  font: inherit;
+  font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+  cursor: pointer;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgb(255 255 255 / 10%),
+      rgb(255 255 255 / 2%)
+    ),
+    #241d32;
+
+  box-shadow:
+    0 12px 30px rgb(0 0 0 / 25%),
+    inset 0 1px 0 rgb(255 255 255 / 8%);
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.category-card::before {
+    position: absolute;
+    inset: 0;
+    content: "";
+    opacity: 0;
+    background: linear-gradient(
+        135deg,
+        rgb(196 181 253 / 18%),
+        transparent 55%
+    );
+
+    transition: opacity 0.2s ease;
+}
+
+.category-card h3 {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+
+    font-family: "Playfair Display", Georgia, serif;
+    line-height: 1.12;
+}
+
+.category-card:hover {
+    border-color: rgb(196 181 253 / 60%);
+    transform: translateY(-7px);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgb(196 181 253 / 18%),
+            rgb(255 255 255 / 3%)
+        ),
+        #2b203d;
+
+    box-shadow:
+        0 18px 38px rgb(0 0 0 / 36%),
+        0 0 0 4px rgb(196 181 253 / 10%);
+}
+
+.category-card:hover::before {
+    opacity: 1;
+}
+
+/* Buttons below content */
+
+.game-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin: 0 auto 32px;
+}
+
+.game-actions button {
+    padding: 10px 16px;
+
+    border: 0;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    color: #181818;
+
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.game-actions button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.game-actions button:disabled:hover {
+    background-color: #f5f5f5;
+    transform: none;
+}
+
+.game-actions button:hover {
+    background-color: #d8b4fe;
+    transform: translateY(-2px);
+}
+
+.game-actions button:active {
+    transform: translateY(0);
+}
+
+.game-actions .back-button {
+    border: 1px solid #777;
+    background: transparent;
+    color: #ffffff;
+}
+
+.game-actions .back-button:hover {
+    border-color: #c084fc;
+    background: #32273c;
+}
+
+/* Keyboard focus */
+
+.teachers-card:focus-visible,
+.category-card:focus-visible,
+.option-a:focus-visible,
+.option-b:focus-visible,
+.option-c:focus-visible,
+.option-d:focus-visible,
+.game-actions button:focus-visible {
+    outline: 3px solid #c084fc;
+    outline-offset: 4px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  width: min(100% - 2rem, 400px);
+  margin: 4rem auto;
+  padding: 2rem;
+
+  background-color: #1f1b2e;
+  border: 1px solid #39304f;
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+}
+
+.auth-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  color: #f5f3ff;
+  font-weight: 600;
+}
+
+.auth-form input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.75rem 0.9rem;
+
+  color: #f5f3ff;
+  font: inherit;
+
+  background: #29233b;
+  border: 1px solid #4a3f62;
+  border-radius: 8px;
+  outline: none;
+}
+
+.auth-form input:focus {
+  border-color: #a78bfa;
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.25);
+}
+
+.auth-form button {
+  margin-top: 0.5rem;
+  padding: 0.8rem 1rem;
+
+  color: #1b1126;
+  font: inherit;
+  font-weight: 700;
+
+  background-color: #c4b5fd;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.auth-form button:hover {
+  background-color: #a78bfa;
+}
+
+.auth-form button:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.35);
+    outline-offset: 2px;
+}
+
+.auth-form button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Tablet */
+
+@media (max-width: 700px) {
+    .teachers-container {
+        grid-template-columns: 1fr;
+
+        width: min(100% - 32px, 360px);
+    }
+
+    .category-container {
+        grid-template-columns: repeat(2, minmax(140px, 1fr));
+
+        width: min(100% - 32px, 520px);
+    }
+
+    .answers-card {
+        grid-template-columns: repeat(2, minmax(140px, 1fr));
+        gap: 14px;
+    }
+}
+
+/* Phone */
+
+@media (max-width: 420px) {
+    .stage-title {
+        margin: 36px 16px 18px;
+    }
+
+    .teachers-card {
+        min-height: 130px;
+        padding: 16px;
+
+        font-size: 1.45rem;
+    }
+
+    .category-container {
+        grid-template-columns: 1fr;
+
+        width: min(100% - 32px, 320px);
+    }
+
+    .category-card {
+        min-height: 115px;
+        padding: 16px;
+
+        font-size: 1.4rem;
+    }
+
+    .answers-card {
+        grid-template-columns: 1fr;
+
+        width: min(100% - 32px, 360px);
+    }
+
+    .option-a,
+    .option-b,
+    .option-c,
+    .option-d {
+        min-height: 120px;
+        border-radius: 10px;
+    }
+
+    .game-actions {
+        gap: 10px;
+        margin-bottom: 24px;
+    }
+}
