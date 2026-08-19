@@ -1,0 +1,56 @@
+# global options
+{
+	admin off
+	persist_config off
+	auto_https off
+
+	log {
+		format json
+	}
+
+	servers {
+		trusted_proxies static private_ranges 100.0.0.0/8 # trust railway's proxy
+	}
+}
+
+# site block, listens on the $PORT environment variable, automatically assigned by railway
+:{$PORT:80} {
+	log {
+		format json
+	}
+
+	respond /health 200
+
+	# Security headers
+	header {
+		# Prevent some browsers from MIME-sniffing a response away from the declared Content-Type
+		X-Content-Type-Options "nosniff"
+		# Remove Server header
+		-Server
+	}
+
+	# serve from the 'dist' folder (Vite builds into the 'dist' folder)
+	root * /app/dist
+
+	# Handle static files
+	file_server {
+		hide .git
+		hide .env*
+	}
+
+	# Compression with more formats
+	encode {
+		gzip
+		zstd
+	}
+
+	# SPA fallback: redirect 404 to index.html for client-side routing
+	# Match all routes that are NOT static files
+	@html {
+		path_regexp ^(?!.*\.(js|css|svg|png|jpg|jpeg|gif|ico|woff|woff2|ttf|otf|eot|json|xml)$).*$
+		not path /favicon.ico
+	}
+	
+	# Serve index.html for all non-static routes (SPA routing)
+	rewrite @html /index.html
+}
