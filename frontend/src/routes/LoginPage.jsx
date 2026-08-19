@@ -19,7 +19,7 @@ export const LoginPage = () => {
         setIsLoading(true);
 
         try {
-            const response = await fetch('http://localhost:3000/api/auth/login', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/auth/login`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
@@ -39,7 +39,7 @@ export const LoginPage = () => {
             }
             navigate('/admin');
         } catch (error) {
-            setError(error);
+                        setError(error.message || 'Login failed.');
         } finally {
             setIsLoading(false);
         }
