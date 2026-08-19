@@ -7,11 +7,10 @@ const URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 export const AdminPage = () => {
     const [name, setName] = useState('');
 
-
     const handleSubmit = async (event) => {
         event.preventDefault()
 
-        await fetch(`${URL}/api/categories`, 
+        await fetch(`${URL}/api/categories`,
             {
                 method: "POST",
                 headers: {
@@ -26,29 +25,27 @@ export const AdminPage = () => {
         setName("");
     }
 
-
     return (
-
         <div className='page'>
             <Header />
             <main className="page-content">
-                <h1>Create new quiz</h1>
+                <h1 className="stage-title">Create new quiz</h1>
 
-                <form onSubmit={handleSubmit}>
+                <form className="auth-form" onSubmit={handleSubmit}>
                     <label>
                         Category
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={(event) => setName(event.target.value)}
-                        placeholder="Category name"
-                    />
+                        <input
+                            type="text"
+                            value={name}
+                            onChange={(event) => setName(event.target.value)}
+                            placeholder="Category name"
+                        />
                     </label>
-                    <button type="submit"> Add category </button>
+                    <button type="submit">Add category</button>
                 </form>
             </main>
             <Footer />
         </div>
-        
+
     )
 }
